@@ -41,8 +41,9 @@ def render(production):
     for val in production:
         if val == "F":
             translate(0, 0, -distance / 2.0)
-            box(5, 5, -distance)
+            box(5, 5, -distance + 2.5)
             translate(0, 0, -distance / 2.0)
+            box(5, 5, 5)
         elif val == '+': 
             rotateX(THETA * repeat)
             repeat = 1
@@ -96,7 +97,7 @@ def setup():
     size(500, 500)
     global production
     production = grammar.repeat(4, AXIOM, RULES)    
-    #noStroke()             ## stroke is needed since fill is a different size!!!!
+    noStroke()            
     fill(200, 0, 180)   
    
     
