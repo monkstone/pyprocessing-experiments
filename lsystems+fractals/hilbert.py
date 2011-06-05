@@ -1,22 +1,21 @@
 """
-hilbert.py by Martin Prout based on a Hilbert curve from "Algorithmic Beauty of Plants"
-by Przemyslaw Prusinkiewicz & Aristid Lindenmayer
-Uses a java peasycam library (Jonathan Feinberg), and a python grammar module.
+hilbert.py by Martin Prout based on a Hilbert curve from "Algorithmic Beauty
+of Plants" by Przemyslaw Prusinkiewicz & Aristid Lindenmayer
+and a python lsystem module to provide grammar module.
 Features processing affine transforms.
 """
-
+from pyprocessing import *
 import math
-import processing.opengl
-import peasy.PeasyCam as PeasyCam
-import grammar
+import time
+from lsystems import grammar
 
 # some lsystem constants
 XPOS = 0
 YPOS = 1
 ANGLE = 2
-BEN = math.pi/360   # just a bit of fun set BEN to zero for a regular Hilbert
-THETA = math.pi/2 + BEN
-PHI = math.pi/2 - BEN
+BEN = math.pi/720   # use BEN to create a bent Hilbert
+THETA = math.pi/2 # + BEN
+PHI = math.pi/2 # - BEN
 
 RULES = {
     'A': "B>F<CFC<F>D+F-D>F<1+CFC<F<B1^",
@@ -41,10 +40,9 @@ def render(production):
     repeat = 1
     for val in production:
         if val == "F":
-            translate(0, 0, -distance / 2)
-            box(3, 3, distance - 1.6)
-            translate(0, 0, -distance / 2)
-            box(3, 3, 3);
+            translate(0, 0, -distance / 2.0)
+            box(5, 5, -distance)
+            translate(0, 0, -distance / 2.0)
         elif val == '+': 
             rotateX(THETA * repeat)
             repeat = 1
@@ -60,28 +58,45 @@ def render(production):
             rotateZ(PHI * repeat)
             repeat = 1
         elif (val == '1') :
-            repeat += 1           
+            repeat = 2         
         elif (val == 'A' or val == 'B' or val == 'C' or val == 'D'):            
             pass  # assert as valid grammar and do nothing
         else: 
             print("Unknown grammar %s" % val)
+            
+def smoothVector(s1, s2, s3):
+    """
+    Stolen from lazydogs 3D Sierpinski sketch.
+    Generate a vector whose components change smoothly over time in the range [ 0, 1 ].
+    Each component uses a math.sin() function to map the current time in milliseconds 
+    somewhere in the range [ 0, 1 ].A 'speed' factor is specified for each component.
+    """
+    mills = time.time() * 0.03 
+    x = 0.5 * math.sin(mills * s1) + 0.5
+    y = 0.5 * math.sin(mills * s2) + 0.5
+    z = 0.5 * math.sin(mills * s3) + 0.5
+    return [x, y, z]           
         
-def configure_opengl():
-    hint(ENABLE_OPENGL_4X_SMOOTH)     
-    hint(DISABLE_OPENGL_ERROR_REPORT) 
+def smoothRotation(s1, s2, s3):
+    """
+    Stolen from lazydogs 3D Sierpinski sketch. Rotate the current coordinate system.
+    Uses smoothVector() to smoothly animate the rotation.
+    """
+    r1 = smoothVector(s1, s2, s3) 
+    rotateX(2.0 * math.pi * r1[0])
+    rotateY(2.0 * math.pi * r1[1])
+    rotateX(2.0 * math.pi * r1[2])   
+
+
     
 def setup():
     """
     The processing setup statement
     """
-    size(500, 500, OPENGL)
-    configure_opengl()
-    cam = PeasyCam(this, -70, 70, -70,250)
-    cam.setMinimumDistance(height/10)
-    cam.setMaximumDistance(height)    
+    size(500, 500)
     global production
-    production = grammar.repeat(3, AXIOM, RULES)    
-    noStroke()
+    production = grammar.repeat(4, AXIOM, RULES)    
+    #noStroke()             ## stroke is needed since fill is a different size!!!!
     fill(200, 0, 180)   
    
     
@@ -89,7 +104,12 @@ def draw():
     """
     Render a 3D Hilbert/Ben Tilbert, somewhat centered
     """
-    lights()
     background(255)
+    lights()  
+    camera(250, 250, 800, 0, 0, 0, 0, 1, 0)     
+    smoothRotation(4.5, 3.7, 7.3)
+    pushMatrix()
+    translate(53, 33, 25)
     render(production)
-
+    popMatrix()
+run()
