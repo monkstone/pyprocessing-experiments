@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE COMMANDO SYSTEM "commando.dtd">
+
+<!-- Run current buffer with python and pyprocessing snapshot script-->
+<!-- Monkstone, 2011-June-8 -->
+<COMMANDO>
+<UI>
+<CAPTION LABEL="Run Sketch with Snapshot Script">
+<FILE_ENTRY LABEL="sketch" VARNAME="sketch" EVAL="buffer.getName()"/>
+</CAPTION>
+<CAPTION LABEL="Snapshot Options">
+<TOGGLE LABEL="singleshot" VARNAME="single" DEFAULT="TRUE"/>
+<TOGGLE LABEL="interactive    F1 key takes snapshot" VARNAME="interactive" DEFAULT="FALSE"/>
+<ENTRY LABEL="Delay" VARNAME="delay" DEFAULT="1.0"/>
+</CAPTION>
+<CAPTION LABEL="Path to takesnapshot.py script">
+<ENTRY LABEL="(no spaces)" VARNAME="snapshot" DEFAULT=""/>
+</CAPTION>
+</UI>
+
+<COMMANDS>
+
+<COMMAND SHELL="System" CONFIRM="FALSE">
+<!-- cd to working dir -->
+
+	  buf = new StringBuilder("cd ");
+	  buf.append(MiscUtilities.getParentOfPath(buffer.getPath()));
+	  buf.toString();
+	
+</COMMAND>
+
+<COMMAND SHELL="System" CONFIRM="FALSE">
+
+	  buf = new StringBuilder(40);
+	  buf.append("python ");
+	  if (single)
+	  {
+	  buf.append(snapshot);
+	  buf.append(" --single=");
+	  buf.append(delay);
+	  buf.append(" ");
+	  }
+	  if (interactive)
+	  {
+	  buf.append(snapshot);
+	  buf.append(" --interactive ");
+	  }
+	  buf.append(sketch);
+    buf;
+
+</COMMAND>
+
+
+</COMMANDS>
+</COMMANDO>
