@@ -32,17 +32,15 @@
 <COMMAND SHELL="System" CONFIRM="FALSE">
 
 	  buf = new StringBuilder(40);
-	  buf.append("python ");
-	  if (single)
-	  {
 	  buf.append(snapshot);
+	  if (single)
+	  {	  
 	  buf.append(" --single=");
 	  buf.append(delay);
 	  buf.append(" ");
 	  }
 	  if (interactive)
 	  {
-	  buf.append(snapshot);
 	  buf.append(" --interactive ");
 	  }
 	  buf.append(sketch);
