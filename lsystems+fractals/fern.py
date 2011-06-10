@@ -4,11 +4,11 @@ After a fern by Gareth Spor
 by monkstone features a pen as a dictionary
 """
 from pyprocessing import *
-import math
+from math import pi, cos, sin
 
 # some globals
 
-DELTA = 5.4 * math.pi/180
+DELTA = 5.4 * pi/180
 
 STARTCOLOR = color(0, 255, 0) # bright green
 
@@ -87,8 +87,8 @@ def __drawLine(pen):
     Draw line utility uses processing 'line' function to draw lines
     takes pen dictionary input returns a pen with new position
     """
-    new_xpos = pen['xpos'] + pen['distance'] * math.cos(pen['theta'])
-    new_ypos = pen['ypos'] + pen['distance'] * math.sin(pen['theta'])
+    new_xpos = pen['xpos'] + pen['distance'] * cos(pen['theta'])
+    new_ypos = pen['ypos'] + pen['distance'] * sin(pen['theta'])
     stroke(pen['col'])
     strokeWeight(2)
     line(pen['xpos'], pen['ypos'], new_xpos, new_ypos)

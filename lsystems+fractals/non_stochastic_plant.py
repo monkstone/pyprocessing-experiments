@@ -1,58 +1,48 @@
 """
-stochastic_plant.py  by Martin Prout is a based on a ideas from 
-"Algorithmic Beauty of Plants" by Przemyslaw Prusinkiewicz & Aristid 
-Lindenmayer.  Features a lsystem grammar module, that can parse both 
-stochastic and non-stochastic rules, or a mixture thereof. The format 
-of the stochastic rules (as a dict of dict) is described in 
-the grammar.py header, lsystems module.
+non-stochastic_plant.py is a python script for use in pyprocessing. 
+Uses a lsystem module, that can parse both stochastic and
+non-stochastic rules, or a mixture thereof
 """
-
 from pyprocessing import *
+from math import cos, sin, pi
 from lsystems import grammar
-from math import pi, sin, cos
 
 # some constants
 XPOS = 0
 YPOS = 1
 ANGLE = 2
 WEIGHT = 3
-DELTA = pi/8
-
+DELTA = (22.5/180) * pi
 # A simple stochastic rule as a dict, with a dict of values (only one key)
 # and 3 weighted alternative substitutions.
-RULES = {  
-    'F' : {'F[+F]F[-F]' : 10,
-        'F[+F]F' : 45,
-        'F[-F]F' : 45
-    }
+RULES = {
+    'X' : 'F-[[X]+X]+F[+FX]-X',
+    'F' : 'FF',
 }
 
-AXIOM = 'F'
+AXIOM = 'X'
 
 
 def render(production):       
     """
     Render evaluates the production string and calls draw_line
     """
-    pen = [width/2, height*0.95, pi/2, 4]
+    pen = [width/2, height*0.95, pi/2, 3]
     stack = []
     repeat = 1
     for val in production:
         if val == "F": 
-            strokeWeight(pen[WEIGHT])
-            pen = draw_line(pen, 12)
+            pen = draw_line(pen, 9)
         elif val == "+": 
             pen[ANGLE] += DELTA * repeat
         elif val == "-": 
             pen[ANGLE] -= DELTA * repeat
         elif val == "[": 
-            temp = []
-            temp[:] = pen # deep copy pen to temp
-            temp[WEIGHT] = pen[WEIGHT] * 0.248 # reduce stroke weight
+            temp = [pen[XPOS], pen[YPOS], pen[ANGLE],pen[WEIGHT] * 0.6]
             stack.append(temp)
         elif val == "]": 
             pen = stack.pop() 
-            pen[WEIGHT] *= 4            # almost restore stroke weight
+            pen[WEIGHT] *= 1/0.6
         else: 
             pass
         
@@ -61,30 +51,34 @@ def draw_line(pen, length):
     """
     Draw line utility uses processing 'line' function to draw lines
     """
-    pencopy = []
-    pencopy[:] = pen
-    pencopy[XPOS] = pen[XPOS] + length * cos(pen[ANGLE])
-    pencopy[YPOS] = pen[YPOS] - length * sin(pen[ANGLE])
+    new_xpos = pen[XPOS] + length * cos(pen[ANGLE])
+    new_ypos = pen[YPOS] - length * sin(pen[ANGLE])
     strokeWeight(pen[WEIGHT])
-    line(pen[XPOS], pen[YPOS], pencopy[XPOS], pencopy[YPOS])
-    return pencopy     
+    line(pen[XPOS], pen[YPOS], new_xpos, new_ypos)
+    return [new_xpos, new_ypos, pen[ANGLE],pen[WEIGHT]]     
     
     
 def setup():
     """
     The processing setup statement
     """
-    size(500, 500)
+    size(500, 800)
     background(200, 200, 0)
+    smooth()
+    fill(190, 10, 10)
+    noStroke()
+    ellipse(300, 250, 180, 180)
     stroke(0, 100, 0)
     plant0 = grammar.repeat(4, AXIOM, RULES)
     plant1 = grammar.repeat(5, AXIOM, RULES)    
     plant2 = grammar.repeat(4, AXIOM, RULES)
     render(plant1)
-    translate(-100, 10)
+    translate(-100, -5)
+    stroke(200, 100, 100)
     render(plant0)
-    translate(200, 0)
+    translate(200, 0)    
     render(plant2)  
     print grammar.toRuleString(AXIOM, RULES)
-
-run()
+    
+    
+run() 

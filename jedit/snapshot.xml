@@ -44,7 +44,7 @@
 	  buf.append(" --interactive ");
 	  }
 	  buf.append(sketch);
-    buf;
+          buf;
 
 </COMMAND>
 

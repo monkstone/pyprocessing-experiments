@@ -9,11 +9,11 @@ Utilizes a custom lightweight TPoint (to replace the more fattening PVector)
 from tpoint import TPoint
 from pyprocessing import *
 
-import math
+from math import sqrt, sin, cos
 
 
 xValues = [100, 300, 500, 700, 900, 1100, 1300, 1500]
-yValues = [50 * math.sqrt(3), 150 * math.sqrt(3), 250 * math.sqrt(3), 350 * math.sqrt(3), 450 * math.sqrt(3), 550 * math.sqrt(3)]
+yValues = [50 * sqrt(3), 150 * sqrt(3), 250 * sqrt(3), 350 * sqrt(3), 450 * sqrt(3), 550 * sqrt(3)]
 
 GOLD = 0
 BLACK = 1
@@ -46,8 +46,8 @@ def draw_star(xpos, ypos, sz, col):
     """
     noStroke()
     fill(col)
-    triangle(xpos + sz/math.sqrt(3), ypos, xpos - (math.sqrt(3)*sz)/6, ypos - 0.5 * sz, xpos - (math.sqrt(3)*sz)/6, ypos + 0.5 * sz)
-    triangle(xpos - sz/math.sqrt(3), ypos, xpos + (math.sqrt(3)*sz)/6, ypos - 0.5 * sz, xpos + (math.sqrt(3)*sz)/6, ypos + 0.5 * sz)
+    triangle(xpos + sz/sqrt(3), ypos, xpos - (sqrt(3)*sz)/6, ypos - 0.5 * sz, xpos - (sqrt(3)*sz)/6, ypos + 0.5 * sz)
+    triangle(xpos - sz/sqrt(3), ypos, xpos + (sqrt(3)*sz)/6, ypos - 0.5 * sz, xpos + (sqrt(3)*sz)/6, ypos + 0.5 * sz)
     
 def draw_hexagon(xpos, ypos, sz, theta):
     """
@@ -56,7 +56,7 @@ def draw_hexagon(xpos, ypos, sz, theta):
     fill(colors[WHITE])
     beginShape()
     for i in range(0, 6):
-        vertex(xpos + sz*math.cos((math.pi/3 * i) + theta), ypos + sz*math.sin((math.pi/3 * i) +theta))
+        vertex(xpos + sz*cos((pi/3 * i) + theta), ypos + sz*sin((pi/3 * i) +theta))
     endShape(CLOSE)
         
         
@@ -67,24 +67,24 @@ def draw_triangle(x0, y0, sz, coluer, disp):
     # Set the three initial triangle points, thereafter calculate mid points, and  
     # quarter points. Then adjust the bezier curve control points.
     pts = []
-    pts.append(TPoint(x0, y0 + sz/math.sqrt(3)))               # A (A, B and C are the triangle points)
-    pts.append(TPoint(x0 - 0.5 * sz, y0 - (math.sqrt(3)*sz)/6))# B
-    pts.append(TPoint(x0 + 0.5 * sz, y0 - (math.sqrt(3)*sz)/6))# C
+    pts.append(TPoint(x0, y0 + sz/sqrt(3)))               # A (A, B and C are the triangle points)
+    pts.append(TPoint(x0 - 0.5 * sz, y0 - (sqrt(3)*sz)/6))# B
+    pts.append(TPoint(x0 + 0.5 * sz, y0 - (sqrt(3)*sz)/6))# C
     pts.append(pts[0].mid_point(pts[1]))                        # Ab (Ab, Bc and Ca are the triangle mid points)
     pts.append(pts[1].mid_point(pts[2]))                        # Bc
     pts.append(pts[0].mid_point(pts[2]))                        # Ca
     pts.append(pts[0].mid_point(pts[3]))                        # Aba (Aba ... are the triangle quarter points)
-    adjust_bezier(pts[6], -math.pi/3, -disp*sz)                 # Aba
+    adjust_bezier(pts[6], -pi/3, -disp*sz)                      # Aba
     pts.append(pts[3].mid_point(pts[1]))                        # Abb
-    adjust_bezier(pts[7], -math.pi/3, disp*sz)                  # Abb
+    adjust_bezier(pts[7], -pi/3, disp*sz)                       # Abb
     pts.append(pts[1].mid_point(pts[4]))
-    adjust_bezier(pts[8], -math.pi/2, disp*sz)
+    adjust_bezier(pts[8], -pi/2, disp*sz)
     pts.append(pts[4].mid_point(pts[2]))
-    adjust_bezier(pts[9], -math.pi/2, -disp*sz)
+    adjust_bezier(pts[9], -pi/2, -disp*sz)
     pts.append(pts[2].mid_point(pts[5]))
-    adjust_bezier(pts[10], math.pi/3, disp*sz)
+    adjust_bezier(pts[10], pi/3, disp*sz)
     pts.append(pts[5].mid_point(pts[0]))
-    adjust_bezier(pts[11], math.pi/3, -disp*sz)
+    adjust_bezier(pts[11], pi/3, -disp*sz)
     # render triangle
     fill(coluer)
     beginShape()
@@ -103,7 +103,7 @@ def adjust_bezier(bzpoint, theta, disp):
     """
     Adjust the Bezier control point
     """
-    bzpoint.add(TPoint(math.cos(theta)*disp, math.sin(theta)*disp))    
+    bzpoint.add(TPoint(cos(theta)*disp, sin(theta)*disp))    
 
     
 def render():

@@ -8,11 +8,11 @@ http://lazydog-bookfragments.blogspot.com/2009/05/final-version-of-ball-of
 
 
 from pyprocessing import *
-import math
+from math import sin, sqrt, pi
 import time
 
 # define PHI as the Golden Ratio constant
-PHI = (1 + math.sqrt(5))/2
+PHI = (1 + sqrt(5))/2
 
 def setup():
     """
@@ -51,21 +51,21 @@ def setupLights():
     """
     ambientLight(0.2, 0.2, 0.2)
     directionalLight(0.2, 0.2, 0.2, -1, -1, -1)
-    spotLight(1.0, 1.0, 1.0, -200, 0, 300, 1, 0, -1, math.pi/4, 20)
+    spotLight(1.0, 1.0, 1.0, -200, 0, 300, 1, 0, -1, pi/4, 20)
     
     
 
 def smoothVector(s1, s2, s3):
     """
     Generate a vector whose components change smoothly over time in the range 
-    [ 0, 1 ]. Each component uses a math.sin() function to map the current time
+    [ 0, 1 ]. Each component uses a sin() function to map the current time
     in milliseconds somewhere in the range [ 0, 1 ].A 'speed' factor is 
     specified for each component.
     """
     mills = time.time() * 0.03 
-    x = 0.5 * math.sin(mills * s1) + 0.5
-    y = 0.5 * math.sin(mills * s2) + 0.5
-    z = 0.5 * math.sin(mills * s3) + 0.5
+    x = 0.5 * sin(mills * s1) + 0.5
+    y = 0.5 * sin(mills * s2) + 0.5
+    z = 0.5 * sin(mills * s3) + 0.5
     return PVector(x, y, z)
     
 
@@ -84,9 +84,9 @@ def smoothRotation(s1, s2, s3):
     Uses smoothVector() to smoothly animate the rotation.
     """
     r1 = smoothVector(s1, s2, s3) 
-    rotateX(2.0 * math.pi * r1.x)
-    rotateY(2.0 * math.pi * r1.y)
-    rotateX(2.0 * math.pi * r1.z)   
+    rotateX(2.0 * pi * r1.x)
+    rotateY(2.0 * pi * r1.y)
+    rotateX(2.0 * pi * r1.z)   
     
 
 def drawIcosahedron(depth, r, spherical):
@@ -98,7 +98,7 @@ def drawIcosahedron(depth, r, spherical):
 
     # Calculate the vertex data for an icosahedron inscribed by a sphere radius
     # 'r'.  Use 4 Golden Ratio rectangles as the basis.
-    h = r / math.sqrt(1.0 + PHI * PHI)
+    h = r / sqrt(1.0 + PHI * PHI)
     v = [
         PVector(0, -h, h * PHI), PVector(0, -h, -h * PHI), PVector(0, h, -h * PHI), PVector(0, h, h * PHI),
         PVector(h, -h * PHI, 0), PVector(h, h * PHI, 0), PVector(-h, h * PHI, 0), PVector(-h, -h * PHI, 0),

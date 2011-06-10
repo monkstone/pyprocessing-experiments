@@ -2,9 +2,9 @@
 sierpinski.py in pyprocessing by Martin Prout, a recursive solution
 """
 from pyprocessing import *
-import math
+from math import ceil, sqrt
 
-SQRT3 = math.sqrt(3)
+SQRT3 = sqrt(3)
 T_HEIGHT = SQRT3/2 
 TOP_Y = 1/SQRT3
 BOT_Y = SQRT3/6
@@ -14,7 +14,7 @@ def setup():
     """
     processing setup
     """
-    size(math.ceil(triangleSize), math.ceil(T_HEIGHT*triangleSize))
+    size(ceil(triangleSize), ceil(T_HEIGHT*triangleSize))
     smooth()  
     fill(255)
     background(0)

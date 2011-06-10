@@ -4,14 +4,14 @@ A very simple lsystem example
 uses a lystems module to generate grammar
 """
 from pyprocessing import * 
-import math
+from math import pi, cos, sin
 from lsystems import grammar
 
 # some lsystem constants
 XPOS = 0
 YPOS = 1
 ANGLE = 2
-DELTA = math.pi * 2/3
+DELTA = pi * 2/3
 
 #####
 # The lsystem string substition rules as a dict
@@ -47,8 +47,8 @@ def __drawLine(turtle, length):
     private draw line function
     returns a turtle at the new position
     """
-    new_xpos = turtle[XPOS] + length * math.cos(turtle[ANGLE])
-    new_ypos = turtle[YPOS] + length * math.sin(turtle[ANGLE])
+    new_xpos = turtle[XPOS] + length * cos(turtle[ANGLE])
+    new_ypos = turtle[YPOS] + length * sin(turtle[ANGLE])
     line(turtle[XPOS], turtle[YPOS], new_xpos, new_ypos)
     return [new_xpos, new_ypos, turtle[ANGLE]]
   

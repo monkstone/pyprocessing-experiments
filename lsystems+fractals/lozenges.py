@@ -7,7 +7,7 @@ Uses a grammar module to create production, and uses algebra in place
 of processing affine transforms to calculate line coordinates. 
 """
 from pyprocessing import *
-import math
+from math import pi, sqrt, cos
 from lsystems import grammar
 
 # some lsystem constants
@@ -17,8 +17,8 @@ ANGLE = 2
 DIST = 3
 RED = color(200, 0, 0, 80)
 YELLOW = color(200, 200, 0, 80)
-DELTA = math.pi/5
-PHI = (math.sqrt(5) - 1)/2
+DELTA = pi/5
+PHI = (sqrt(5) - 1)/2
 IPHI = 1/PHI
 
 AXIOM = 'bX'
@@ -60,7 +60,7 @@ def __reverse(pen):
     """
     private reverse direction
     """
-    pen[ANGLE] += math.pi
+    pen[ANGLE] += pi
     return pen
     
 def __twiceRepeat(pen):
@@ -86,8 +86,8 @@ def __drawLine(pen):
     """
     pencopy = []
     pencopy[:] = pen
-    pencopy[XPOS] = pen[XPOS] + pen[DIST] * math.cos(pen[ANGLE])
-    pencopy[YPOS] = pen[YPOS] + pen[DIST] * math.sin(pen[ANGLE])
+    pencopy[XPOS] = pen[XPOS] + pen[DIST] * cos(pen[ANGLE])
+    pencopy[YPOS] = pen[YPOS] + pen[DIST] * sin(pen[ANGLE])
     line(pen[XPOS], pen[YPOS], pencopy[XPOS], pencopy[YPOS])
     return pencopy
     
@@ -99,8 +99,8 @@ def __moveForward(pen):
     stroke(YELLOW)
     pencopy = []
     pencopy[:] = pen
-    pencopy[XPOS] = pen[XPOS] + pen[DIST] * math.cos(pen[ANGLE])
-    pencopy[YPOS] = pen[YPOS] + pen[DIST] * math.sin(pen[ANGLE])
+    pencopy[XPOS] = pen[XPOS] + pen[DIST] * cos(pen[ANGLE])
+    pencopy[YPOS] = pen[YPOS] + pen[DIST] * sin(pen[ANGLE])
     return pencopy  
     
 def __reduceLength(pen): 

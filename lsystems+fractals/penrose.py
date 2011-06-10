@@ -7,13 +7,13 @@ or equally ugly
 """
 
 from pyprocessing import *
-import math
+from math import pi, sin, cos
 
 # some globals
 XPOS = 0
 YPOS = 1
 ANGLE = 2
-DELTA = math.pi/5
+DELTA = pi/5
 
 RULES = {
 'F' : '',
@@ -81,8 +81,8 @@ def draw_line(turtle, length):
     """
     Draw line utility uses processing 'line' function to draw lines
     """
-    new_xpos = turtle[XPOS] + length * math.cos(turtle[ANGLE])
-    new_ypos = turtle[YPOS] - length * math.sin(turtle[ANGLE])
+    new_xpos = turtle[XPOS] + length * cos(turtle[ANGLE])
+    new_ypos = turtle[YPOS] - length * sin(turtle[ANGLE])
     line(turtle[XPOS], turtle[YPOS], new_xpos, new_ypos)
     return [new_xpos, new_ypos, turtle[ANGLE]]     
 

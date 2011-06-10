@@ -5,7 +5,7 @@ and a python lsystem module to provide grammar module.
 Features processing affine transforms.
 """
 from pyprocessing import *
-import math
+from math import pi
 import time
 from lsystems import grammar
 
@@ -13,9 +13,9 @@ from lsystems import grammar
 XPOS = 0
 YPOS = 1
 ANGLE = 2
-BEN = math.pi/720   # use BEN to create a bent Hilbert
-THETA = math.pi/2 # + BEN
-PHI = math.pi/2 # - BEN
+BEN = pi/720   # use BEN to create a bent Hilbert
+THETA = pi/2 # + BEN
+PHI = pi/2 # - BEN
 
 RULES = {
     'A': "B>F<CFC<F>D+F-D>F<1+CFC<F<B1^",
@@ -69,13 +69,13 @@ def smoothVector(s1, s2, s3):
     """
     Stolen from lazydogs 3D Sierpinski sketch.
     Generate a vector whose components change smoothly over time in the range [ 0, 1 ].
-    Each component uses a math.sin() function to map the current time in milliseconds 
+    Each component uses a sin() function to map the current time in milliseconds 
     somewhere in the range [ 0, 1 ].A 'speed' factor is specified for each component.
     """
     mills = time.time() * 0.03 
-    x = 0.5 * math.sin(mills * s1) + 0.5
-    y = 0.5 * math.sin(mills * s2) + 0.5
-    z = 0.5 * math.sin(mills * s3) + 0.5
+    x = 0.5 * sin(mills * s1) + 0.5
+    y = 0.5 * sin(mills * s2) + 0.5
+    z = 0.5 * sin(mills * s3) + 0.5
     return [x, y, z]           
         
 def smoothRotation(s1, s2, s3):
@@ -84,9 +84,9 @@ def smoothRotation(s1, s2, s3):
     Uses smoothVector() to smoothly animate the rotation.
     """
     r1 = smoothVector(s1, s2, s3) 
-    rotateX(2.0 * math.pi * r1[0])
-    rotateY(2.0 * math.pi * r1[1])
-    rotateX(2.0 * math.pi * r1[2])   
+    rotateX(2.0 * pi * r1[0])
+    rotateY(2.0 * pi * r1[1])
+    rotateX(2.0 * pi * r1[2])   
 
 
     
