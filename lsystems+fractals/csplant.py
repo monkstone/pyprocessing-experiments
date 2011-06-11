@@ -14,8 +14,12 @@ RULES = {
   'F<E': 'F[&F[3+A]][^F[3-A]]'
 }
 
+# string walk constants
+LEFT = -1
+RIGHT = 1
+
 THETA = (5 * pi)/36 # 25 degrees in radians
-production = None   # need exposure at module level
+production = None   # needs exposure at module level
 
 def speedVector(speed):
     """
@@ -71,38 +75,44 @@ def render(production):
         else: 
             print("Unknown grammar %s" % val)
 
-def context(a):
+def __context(a):
     """
-    Helper function returns a tuple of value, index and context from key 'a'
+    Private helper function returns a tuple of value, index and context from key 'a'
+    Valid direction setters are '>' or '<' else no direction is set
     """
     index = 0
     before =  a[1] == '<' if len(a) == 3 else False # python ternary operator
     after =  a[1] == '>' if len(a) == 3 else False # python ternary operator
     cont = a[0] if (before or after) else None
     if (before): 
-        index -= 1
+        index += LEFT
     if (after): 
-        index += 1
+        index += RIGHT
     value = a[2] if len(a) == 3 else a[0]    
     return (value, index, cont)
+
+def __getContext(path, index, direction, ignore):
+    """
+    Private helper returns context character from path[index + direction], 
+    skipping and ignore characters
+    """
+    skip = 0
+    while path[direction + index + skip] in ignore:
+        skip += direction
+    return path[direction + index + skip] 
+    
         
 def hasContext(a, b, index):
     """
     from a given key, axiom/production string and index returns
     has context boolean (ignoring characters in IGNORED)
     """
-    ignored = list(IGNORE)
     cont = False
-    walk = 0
-    if context(a)[0] == b[index] and context(a)[1] != 0:
-        if context(a)[1] == -1 and index > 0:
-            while b[index - 1 + walk] in ignored:
-                walk -= 1
-            cont = context(a)[2] == b[index - 1 + walk]
-        elif context(a)[1] == 1 and index < len(b) - 1:
-            while b[index + 1 + walk] in ignored:
-                walk += 1
-            cont = context(a)[2] == b[index + 1 + walk]   
+    if __context(a)[0] == b[index] and __context(a)[1] != 0:
+        if __context(a)[1] == LEFT and index > 0:     # guard negative index
+            cont = __context(a)[2] == __getContext(b, index, LEFT, IGNORE)
+        elif __context(a)[1] == RIGHT and index < len(b) - 1: # guard out of range index
+            cont = __context(a)[2] == __getContext(b, index, RIGHT, IGNORE)  
     return cont
 
 def produce(ax, rules):
