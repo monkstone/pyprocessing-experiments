@@ -1,15 +1,11 @@
 """
 elegant_ball.py
 Another opengl sketch from lazydog translated to pyprocessing by monkstone.
-Suggestions for avoiding the PVector class method mult by Claudio Esperanca 
 http://lazydog-bookfragments.blogspot.com/2009/05/final-version-of-ball-of
 -confusion-for.html
 """
 
-
 from pyprocessing import *
-from math import sin, sqrt, pi
-import time
 
 # define PHI as the Golden Ratio constant
 PHI = (1 + sqrt(5))/2
@@ -92,12 +88,12 @@ def smoothRotation(s1, s2, s3):
 def drawIcosahedron(depth, r, spherical):
     """
     Draw an icosahedron defined by a radius r and recursive depth d.
-    Geometry data will be saved into dst. If spherical is true then the 
+    Geometry data will be saved into DST. If spherical is true then the 
     icosahedron is projected onto the sphere with radius r.
     """
 
-    # Calculate the vertex data for an icosahedron inscribed by a sphere radius
-    # 'r'.  Use 4 Golden Ratio rectangles as the basis.
+    # Calculate the vertex data for an icosahedron inscribed by a sphere radius 'r'
+    # Use 4 Golden Ratio rectangles as the basis.
     h = r / sqrt(1.0 + PHI * PHI)
     v = [
         PVector(0, -h, h * PHI), PVector(0, -h, -h * PHI), PVector(0, h, -h * PHI), PVector(0, h, h * PHI),
@@ -148,10 +144,9 @@ def drawTriangle(depth, r, p1, p2, p3):
         vertex(p3.x, p3.y, p3.z)
         
     else:
-        # Calculate the mid points of this triangle.
-        v1 = (p1 + p2) * 0.5  # was PVector.mult(PVector.add(p1, p2), 0.5)
-        v2 = (p2 + p3) * 0.5  # was PVector.mult(PVector.add(p2, p3), 0.5)
-        v3 = (p3 + p1) * 0.5  # was PVector.mult(PVector.add(p3, p1), 0.5)
+        v1 = PVector.mult(PVector.add(p1, p2), 0.5)
+        v2 = PVector.mult(PVector.add(p2, p3), 0.5)
+        v3 = PVector.mult(PVector.add(p3, p1), 0.5)
         if (r != 0.0):
             # Project the verticies out onto the sphere with radius r.
             v1.normalize()
