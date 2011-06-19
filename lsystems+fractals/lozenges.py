@@ -29,6 +29,8 @@ RULES = {
     'F' : 'G'
 }
 
+
+
 # some module variables
 
 repeat = 1
@@ -201,7 +203,10 @@ def setup():
     strokeWeight(3)
     stroke(YELLOW)
     render(production)
-  
+    
+def draw():    
+    pyglet.image.get_buffer_manager().get_color_buffer().save('screenshot.png')
+    
 run()  
    
 
