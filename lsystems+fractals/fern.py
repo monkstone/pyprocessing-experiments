@@ -4,7 +4,6 @@ After a fern by Gareth Spor
 by monkstone features a pen as a dictionary
 """
 from pyprocessing import *
-from math import pi, cos, sin
 
 # some globals
 
@@ -53,6 +52,7 @@ def render(production):        # avoiding switch and globals
             'ypos' : 150, 
             'theta' : 0, 
             'distance' : 100, 
+            'stroke_wt' : 4.5, 
             'col' : STARTCOLOR
            }
     stack = []
@@ -68,9 +68,11 @@ def render(production):        # avoiding switch and globals
             repeat = 1
         elif val == "#": 
             pen['distance'] *= 0.33
+            pen['stroke_wt'] *= 0.9
             pen['col'] -= DECREMENT
         elif val == "@": 
             pen['distance'] *= 0.9 
+            pen['stroke_wt'] *= 0.95
             pen['col'] -= (DECREMENT << 1) # continue with bit shift * 2
         elif ((val == '6') or (val == '7')):
             repeat += int(val)  
@@ -90,7 +92,7 @@ def __drawLine(pen):
     new_xpos = pen['xpos'] + pen['distance'] * cos(pen['theta'])
     new_ypos = pen['ypos'] + pen['distance'] * sin(pen['theta'])
     stroke(pen['col'])
-    strokeWeight(2)
+    strokeWeight(pen['stroke_wt'])
     line(pen['xpos'], pen['ypos'], new_xpos, new_ypos)
     new_pen = dict(pen)
     new_pen['xpos'] = new_xpos
