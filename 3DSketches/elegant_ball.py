@@ -144,22 +144,20 @@ def drawTriangle(depth, r, p1, p2, p3):
         vertex(p3.x, p3.y, p3.z)
         
     else:
-        v1 = PVector.mult(PVector.add(p1, p2), 0.5)
-        v2 = PVector.mult(PVector.add(p2, p3), 0.5)
-        v3 = PVector.mult(PVector.add(p3, p1), 0.5)
+        v1, v2, v3 = PVector.mult(PVector.add(p1, p2), 0.5), PVector.mult(PVector.add(p2, p3), 0.5), PVector.mult(PVector.add(p3, p1), 0.5)
+        zarray = [v1, v2, v3]
+        
         if (r != 0.0):
             # Project the verticies out onto the sphere with radius r.
-            v1.normalize()
-            v1.mult(r)
-            v2.normalize()
-            v2.mult(r)
-            v3.normalize()
-            v3.mult(r)
+            for vi in zarray:
+                vi.normalize()
+                vi.mult(r)
+
         ## Generate the next level of detail
         depth -= 1
-        drawTriangle(depth, r, p1, v1, v3)
-        drawTriangle(depth, r, v1, p2, v2)
-        drawTriangle(depth, r, v2, p3, v3)
+        drawTriangle(depth, r, p1, zarray[0], zarray[2])
+        drawTriangle(depth, r, zarray[0], p2, zarray[1])
+        drawTriangle(depth, r, zarray[1], p3, zarray[2])
         # Uncomment out the next line to include the central part of the triangle.
         #drawTriangle(depth, r, v1, v2, v3)  
 

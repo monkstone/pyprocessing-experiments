@@ -1,5 +1,13 @@
 """
-csgrammar.py module by Martin Prout
+Copyright (c) 2011 Martin Prout
+ 
+This module is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+http://creativecommons.org/licenses/LGPL/2.1/
+
+csgrammar.py module
 Supports the parsing of 1-L lsystem rules with ignore
 axiom/rules are evaluated by the produce function, the repeat function 
 is used to repeatedly iterate the rules in a recursive fashion.

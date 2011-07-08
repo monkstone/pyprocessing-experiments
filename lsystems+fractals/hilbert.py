@@ -1,4 +1,12 @@
 """
+Copyright (c) 2011 Martin Prout
+ 
+This demo is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+http://creativecommons.org/licenses/LGPL/2.1/
+
 hilbert.py by Martin Prout based on a Hilbert curve from "Algorithmic Beauty
 of Plants" by Przemyslaw Prusinkiewicz & Aristid Lindenmayer
 and a python lsystem module to provide grammar module.
@@ -13,10 +21,10 @@ from lsystems import grammar
 XPOS = 0
 YPOS = 1
 ANGLE = 2
-BEN = pi/720   # use BEN to create a bent Hilbert
-THETA = pi/2 # + BEN
-PHI = pi/2 # - BEN
-
+BEN = pi/480   # using BEN to create a bent Hilbert
+THETA = pi/2 + BEN
+PHI = pi/2 - BEN
+distance = 40
 RULES = {
     'A': "B>F<CFC<F>D+F-D>F<1+CFC<F<B1^",
     'B': "A+F-CFB-F-D1->F>D-1>F-B1>FC-F-A1^",
@@ -36,14 +44,14 @@ def render(production):
     lightSpecular(204, 204, 204) 
     specular(255, 255, 255) 
     shininess(1.0) 
-    distance = 20
+    global distance 
     repeat = 1
     for val in production:
         if val == "F":
             translate(0, 0, -distance / 2.0)
-            box(5, 5, -distance + 2.5)
+            box(7, 7, -distance + 3.5)
             translate(0, 0, -distance / 2.0)
-            box(5, 5, 5)
+            box(7, 7, 7)
         elif val == '+': 
             rotateX(THETA * repeat)
             repeat = 1
@@ -96,7 +104,8 @@ def setup():
     """
     size(500, 500)
     global production
-    production = grammar.repeat(4, AXIOM, RULES)    
+    camera(width/2.0, height/2.0, 600, 0, 0, 0, 0, -1, 0) 
+    production = grammar.repeat(3, AXIOM, RULES)    
     noStroke()            
     fill(200, 0, 180)   
    
@@ -107,10 +116,11 @@ def draw():
     """
     background(255)
     lights()  
-    camera(250, 250, 800, 0, 0, 0, 0, 1, 0)     
+    
+    translate (width/2,  height/2,  0) 
     smoothRotation(4.5, 3.7, 7.3)
     pushMatrix()
-    translate(53, 33, 25)
+    translate( distance * 3.5, -distance * 3.5, distance * 3.5)
     render(production)
     popMatrix()
 run()

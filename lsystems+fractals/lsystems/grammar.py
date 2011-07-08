@@ -1,5 +1,13 @@
 """
-grammar.py module by Martin Prout
+Copyright (c) 2011 Martin Prout
+ 
+This module is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+http://creativecommons.org/licenses/LGPL/2.1/
+
+grammar.py module
 Supports the parsing of both stochastic and non-stochastic rules
 axiom/rules are evaluated by the produce function, which uses the 
 __weightedRule function to return any stochastic rule according to 
