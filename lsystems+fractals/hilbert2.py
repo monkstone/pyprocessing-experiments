@@ -1,6 +1,6 @@
 """
 Copyright (c) 2011 Martin Prout
- 
+
 This demo is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
 License as published by the Free Software Foundation; either
@@ -22,8 +22,10 @@ ANGLE = 2
 BEN = pi/720   # use BEN to create a bent Hilbert
 THETA = pi/2  # + BEN
 PHI = pi/2   #- BEN
-frameCount = 0   # until frameCount is implemented
-distance = 90
+distance = 280
+depth = 2
+# (pow(depth, 2) - 1)/2
+adjustment = [0,  0.5,  1.5,  3.5,  7.5]
 RULES = {
     'A': "B>F<CFC<F>D+F-D>F<1+CFC<F<B1^",
     'B': "A+F-CFB-F-D1->F>D-1>F-B1>FC-F-A1^",
@@ -74,13 +76,13 @@ def render(production):
             pass  # assert as valid grammar and do nothing
         else: 
             print("Unknown grammar %s" % val)
-            
+
 
 def drawRod(distance):
     """
     Draw a cylinder with length distance, and a sphere at the end
     """
-    sides = 16
+    sides = 12
     radius = distance/7
     angle = 0
     angleIncrement = TWO_PI / sides    
@@ -95,32 +97,46 @@ def drawRod(distance):
     translate(0, 0, -distance/2)
     sphere(radius)
     popMatrix()
- 
+
+def evaluateRules():
+    global production,  distance
+    production = grammar.repeat(depth, AXIOM, RULES)
+    if (depth > 0) :
+        distance *= 1/(pow(2, depth) - 1)
+
 def setup():
     """
     The processing setup statement
     """
     size(500, 500)
-    global production,  distance
-    production = grammar.repeat(2, AXIOM, RULES) 
+    evaluateRules()
     camera(width/2.0, height/2.0, 600, 0, 0, 0, 0, -1, 0)        
     noStroke()            
-       
+
 def draw():
     """
     Render a 3D Hilbert/Rod Hilbert, somewhat centered
     """
-    global  frameCount
-    frameCount += 1
     background(10, 10, 200)
     lights()        
     pushMatrix()
     translate(width/2 , height/2, 0)
-    rotateX(sin(radians(frameCount)))
-    rotateY(cos(radians(frameCount)))
+    rotateX(sin(radians(frame.count)))   # note frame.count, not frameCount
+    rotateY(cos(radians(frame.count)))
     pushMatrix()
-    translate( distance * 1.5, -distance * 1.5, distance * 1.5)
+    translate( distance * adjustment[depth], -distance *  adjustment[depth], distance * adjustment[depth])
     render(production)
     popMatrix()
     popMatrix()
+
+def keyPressed():
+    global depth,  distance
+    if (key.char in '+') and (depth  < 4):
+        depth += 1
+        distance = 280
+        evaluateRules()
+    if (key.char in '-') and (depth > 1):
+        depth -= 1
+        distance = 280
+        evaluateRules()    
 run()
