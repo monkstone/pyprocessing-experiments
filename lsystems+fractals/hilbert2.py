@@ -45,7 +45,9 @@ def render(production):
     ambientLight(80, 80, 80)
     directionalLight(0, 0, 0, 80, 80, 80)
     specular(40, 40, 40) 
-    shininess(0.3)     
+    shininess(0.3)  
+    fill(192, 192, 192)
+    sphere(distance/7)  # first sphere end cap   
     repeat = 1
     for val in production:
         if val == "F":
@@ -76,13 +78,12 @@ def render(production):
 
 def drawRod(distance):
     """
-    Draw a cylinder with length distance, and spheres at each end
+    Draw a cylinder with length distance, and a sphere at the end
     """
     sides = 16
     radius = distance/7
     angle = 0
-    angleIncrement = TWO_PI / sides
-    fill(192, 192, 192)
+    angleIncrement = TWO_PI / sides    
     beginShape(QUAD_STRIP)
     for i in range(sides+1):
         normal(cos(angle), sin(angle), 0)  
@@ -91,9 +92,7 @@ def drawRod(distance):
         angle += angleIncrement
     endShape()
     pushMatrix()
-    translate(0, 0, distance/2)
-    sphere(radius)
-    translate(0, 0, -distance)
+    translate(0, 0, -distance/2)
     sphere(radius)
     popMatrix()
  
@@ -104,8 +103,7 @@ def setup():
     size(500, 500)
     global production,  distance
     production = grammar.repeat(2, AXIOM, RULES) 
-    camera(width/2.0, height/2.0, 600, 0, 0, 0, 0, -1, 0) 
-       
+    camera(width/2.0, height/2.0, 600, 0, 0, 0, 0, -1, 0)        
     noStroke()            
        
 def draw():
@@ -115,8 +113,7 @@ def draw():
     global  frameCount
     frameCount += 1
     background(10, 10, 200)
-    lights()     
-         
+    lights()        
     pushMatrix()
     translate(width/2 , height/2, 0)
     rotateX(sin(radians(frameCount)))
