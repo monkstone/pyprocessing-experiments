@@ -87,7 +87,7 @@ def drawRod(distance):
     angle = 0
     angleIncrement = TWO_PI / sides    
     beginShape(QUAD_STRIP)
-    for i in range(sides+1):
+    for i in xrange(sides+1):
         normal(cos(angle), sin(angle), 0)  
         vertex(radius*cos(angle), radius*sin(angle), -distance/2)
         vertex(radius*cos(angle), radius*sin(angle), distance/2,)

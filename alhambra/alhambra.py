@@ -55,7 +55,7 @@ def draw_hexagon(xpos, ypos, sz, theta):
     """
     fill(colors[WHITE])
     beginShape()
-    for i in range(0, 6):
+    for i in xrange(0, 6):
         vertex(xpos + sz*cos((pi/3 * i) + theta), ypos + sz*sin((pi/3 * i) +theta))
     endShape(CLOSE)
         
@@ -110,8 +110,8 @@ def render():
     """
     Tesselate the wavy triangles, add some star in the spaces
     """
-    for column in range(0,len(xValues)):
-        for row in range(0,len(yValues)):
+    for column in xrange(len(xValues)):
+        for row in xrange(len(yValues)):
             if (row % 2 == 0):
                 draw_triangle(xValues[column], yValues[row], 200, colors[(1 + column)%5], 0.32)
                 draw_star(xValues[column] - 95, yValues[row] + 60, 70, colors[(2 + column)%5])

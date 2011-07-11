@@ -178,7 +178,7 @@ def evaluate(key, pen):
         pen = lsysOp[key](pen)
     else:
         if not RULES.has_key(key):        # useful debugging check you could
-            print "Unknown rule %s" % key # commnent out these lines 
+            print "Unknown rule %s" % key # comment out these lines 
     return pen  
 
 

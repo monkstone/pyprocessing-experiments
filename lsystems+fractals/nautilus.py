@@ -1,5 +1,4 @@
 from pyprocessing import *
-from math import sin, cos, tan, exp, pi  
   
 A = 0.8
 B = 1.4
@@ -16,11 +15,11 @@ def setup():
     background(255)
     translate(width/2, height/3)
     rotate(0.75 * pi)
-    for i in range(0, 41):
+    for i in xrange(41):
         x = getX(i*A)
         y = getY(i*A)
         pvect.append(PVector(x, y))
-    for z in range(8, len(pvect)):
+    for z in xrange(8, len(pvect)):
         tmp0 = pvect[z]
         tmp1 = pvect[z - 1]
         tmp2 = pvect[z - 8]

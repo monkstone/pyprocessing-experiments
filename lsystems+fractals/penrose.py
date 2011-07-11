@@ -41,7 +41,7 @@ def repeat(rpx, axiom, rules):
     Repeat rule substitution in a recursive fashion rpx times
     """ 
     production = axiom
-    for i in range(0, rpx):
+    for i in xrange(rpx):
         production = produce(production, rules)
     return production
     
