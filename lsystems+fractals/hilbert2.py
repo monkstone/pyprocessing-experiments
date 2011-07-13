@@ -53,9 +53,7 @@ def render(production):
     repeat = 1
     for val in production:
         if val == "F":
-            translate(0, 0, -distance / 2.0)
             drawRod(distance)
-            translate(0, 0, -distance / 2.0)            
         elif val == '+': 
             rotateX(THETA * repeat)
             repeat = 1
@@ -86,6 +84,7 @@ def drawRod(distance):
     radius = distance/7
     angle = 0
     angleIncrement = TWO_PI / sides    
+    translate(0, 0, -distance/2)
     beginShape(QUAD_STRIP)
     for i in xrange(sides+1):
         normal(cos(angle), sin(angle), 0)  
@@ -93,10 +92,8 @@ def drawRod(distance):
         vertex(radius*cos(angle), radius*sin(angle), distance/2,)
         angle += angleIncrement
     endShape()
-    pushMatrix()
     translate(0, 0, -distance/2)
     sphere(radius)
-    popMatrix()
 
 def evaluateRules():
     global production,  distance
