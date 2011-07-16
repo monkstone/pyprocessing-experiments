@@ -26,6 +26,7 @@ distance = 280
 depth = 2
 # (pow(depth, 2) - 1)/2
 adjustment = [0,  0.5,  1.5,  3.5,  7.5]
+detail = [36,  24,  12,  10,  9]
 RULES = {
     'A': "B>F<CFC<F>D+F-D>F<1+CFC<F<B1^",
     'B': "A+F-CFB-F-D1->F>D-1>F-B1>FC-F-A1^",
@@ -49,6 +50,7 @@ def render(production):
     specular(40, 40, 40) 
     shininess(0.3)  
     fill(192, 192, 192)
+    sphereDetail(detail[depth])
     sphere(distance/7)  # first sphere end cap   
     repeat = 1
     for val in production:
@@ -80,7 +82,7 @@ def drawRod(distance):
     """
     Draw a cylinder with length distance, and a sphere at the end
     """
-    sides = 12
+    sides = detail[depth]
     radius = distance/7
     angle = 0
     angleIncrement = TWO_PI / sides    
@@ -128,11 +130,11 @@ def draw():
 
 def keyPressed():
     global depth,  distance
-    if (key.char in '+') and (depth  < 4):
+    if (key.char in '+iI') and (depth  < 4):
         depth += 1
         distance = 280
         evaluateRules()
-    if (key.char in '-') and (depth > 1):
+    if (key.char in '-dD') and (depth > 1):
         depth -= 1
         distance = 280
         evaluateRules()    
