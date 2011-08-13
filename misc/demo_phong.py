@@ -57,9 +57,9 @@ H = This Help<br/>
 </font>
 '''
 
-from math import pi, sin, cos, sqrt
-from shader.euclid import *
-
+from math import pi, sin, cos #, sqrt
+#from shader.euclid import *
+from shader.euclid import Vector3
 import pyglet
 from pyglet.gl import *
 from pyglet.window import key

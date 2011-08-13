@@ -32,7 +32,7 @@ def setup():
         y2 = tmp2.y
         x3= tmp3.x # we would have negative increments otherwise
         y3 = tmp3.y 
-        curveTightness(-0.8)    
+        curveTightness(-0.8)
         curve( x0, y0, x1, y1, x2, y2, x3, y3) # draw the radial lines
 
     strokeWeight(4)

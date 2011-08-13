@@ -26,7 +26,7 @@ distance = 280
 depth = 2
 # (pow(depth, 2) - 1)/2
 adjustment = [0,  0.5,  1.5,  3.5,  7.5]
-detail = [36,  24,  12,  10,  9]
+detail = [36,  24,  18,  15,  12]
 RULES = {
     'A': "B>F<CFC<F>D+F-D>F<1+CFC<F<B1^",
     'B': "A+F-CFB-F-D1->F>D-1>F-B1>FC-F-A1^",
@@ -95,6 +95,7 @@ def drawRod(distance):
         angle += angleIncrement
     endShape()
     translate(0, 0, -distance/2)
+    sphereDetail(detail[depth], detail[depth] )
     sphere(radius)
 
 def evaluateRules():
@@ -132,12 +133,15 @@ def draw():
    
 
 def keyPressed():
+    """
+    Increase (iI) or decrease (dD) fractal depth, also reset distance.
+    """
     global depth,  distance
-    if (key.char in '+iI') and (depth  < 4):
+    if (key.char in 'iI') and (depth  < 4):
         depth += 1
         distance = 280
         evaluateRules()
-    if (key.char in '-dD') and (depth > 1):
+    if (key.char in 'dD') and (depth > 1):
         depth -= 1
         distance = 280
         evaluateRules()    
