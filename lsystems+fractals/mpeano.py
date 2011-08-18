@@ -100,5 +100,8 @@ def setup():
     strokeWeight(3)
     render(production)    
 
-
-run()
+if __name__ == "__main__":
+    """
+    guido would prefer this to naked run()?
+    """
+    run()
