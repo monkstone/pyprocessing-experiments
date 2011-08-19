@@ -1,3 +1,15 @@
+"""
+Copyright (c) 2011 Martin Prout
+ 
+This module is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+http://creativecommons.org/licenses/LGPL/2.1/
+
+context_free.py module
+"""
+
 import re
 from context_rule import ContextRule
 
