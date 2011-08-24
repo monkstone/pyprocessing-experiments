@@ -10,6 +10,8 @@ http://creativecommons.org/licenses/LGPL/2.1/
 sketch_writer.py module
 """
 
+__all__ =['SketchWriter']
+
 filename = "test.py"
  
 BEGIN = """

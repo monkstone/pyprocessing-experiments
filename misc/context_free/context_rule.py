@@ -9,6 +9,8 @@ http://creativecommons.org/licenses/LGPL/2.1/
 
 context_rule.py module
 """
+__all__ = ['ContextRule']
+
 from random import random
 
 class ContextRule(object):

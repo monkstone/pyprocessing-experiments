@@ -10,7 +10,8 @@ http://creativecommons.org/licenses/LGPL/2.1/
 context_free.py module
 """
 
-import re
+__all__ = ['ContextFree']
+
 from context_rule import ContextRule
 
 RECURSION_LIMIT = 100
@@ -51,8 +52,7 @@ class ContextFree(object):
         else:
             if (self.count <= self.limit):
                 cr = self.rules[current]
-                pattern = re.compile(' ')
-                to_expand = pattern.split(cr.get_random_expansion())
+                to_expand = (cr.get_random_expansion()).split(" ")
                 for rule in to_expand:
                     self.expand(rule)
             else:
