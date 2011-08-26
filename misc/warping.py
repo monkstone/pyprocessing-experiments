@@ -10,20 +10,21 @@ http://creativecommons.org/licenses/LGPL/2.1/
 warping.py example
 """
 
-
-# @todo try to use numpy directly
-
 from pyprocessing import *
-#import numpy as np
+from os import getcwd,  path
 
+# this sketch uses the vanilla processing convention of a local 'data' folder
+# where images etc should be stored, and python path.join to create a 
+# cross platform address, works for me!!!
+
+data_path = path.join(getcwd(), 'data')  
 source = None
-#image_array = None
+
 
 def setup():
     size(301, 417)
     global source,  image_array
-    source = loadImage("./data/warp.jpg" ) # fill in your own image here "dataPath() not available?"
-   # image_array = np.asarray(source)
+    source = loadImage(path.join(data_path,  'warp.jpg') ) 
     frameRate(3)
 
 def draw():
