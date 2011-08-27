@@ -5,7 +5,6 @@ code looks super messy 'twas easier in ruby
 """
 from pyprocessing import *
 from math import pi, sin
-from time import time
 from lsystems import csgrammar
 
 AXIOM = 'F'

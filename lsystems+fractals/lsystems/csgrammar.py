@@ -19,6 +19,8 @@ Non-Context-Sensitive = { "A": "A+F", "G": "GG", "X" :"G-G"}
 Context-Sensitive = { "A<F": "G"}
 """
 
+__all__ =['hasContext',  'produce',  'repeat']
+
 # string walk constants
 LEFT = -1
 RIGHT = 1

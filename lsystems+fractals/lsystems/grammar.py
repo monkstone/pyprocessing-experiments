@@ -26,7 +26,7 @@ stochastic rule is detected by checking the 'value' type is dict. The dict
 needs to of the form "string substitution" as key with the weighting as value.
 A test function is included for the test conscious or skeptic.
 """
-
+__all__ =['toRuleString',  'produce',  'repeat']
 
 import random
 

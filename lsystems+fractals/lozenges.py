@@ -204,9 +204,6 @@ def setup():
     stroke(YELLOW)
     render(production)
     
-def draw():    
-    pyglet.image.get_buffer_manager().get_color_buffer().save('screenshot.png')
-    
 run()  
    
 

@@ -12,21 +12,14 @@ voronoi.py example
 
 from pyprocessing import *
 from random import randint
+import numpy as npll
 
 def setup():
     size(800,  600)
     n = randint(50, 100) # of cells
-    nx = []
-    ny = []
-    nr = []
-    ng = []
-    nb = []
-    for i in xrange(n):
-        nx.append(randint(0, width - 1))
-        ny.append(randint(0, height - 1))
-        nr.append(randint(0, 255))
-        ng.append(randint(0, 255))
-        nb.append(randint(0, 255))
+    npx = np.random.random((1, n)*height - 1)
+    npy = np.random.random((1, n)*width - 1)
+    npc = np.random.random((3, n)*255)
     
     for y in xrange(height):
         for x in xrange(width):
@@ -34,10 +27,10 @@ def setup():
             dmin = hypot(width - 1, height - 1)
             j = -1
             for i in xrange(n):
-                d = hypot(nx[i] - x, ny[i] - y)
+                d = hypot(npx[i] - x, npy[i] - y)
                 if d < dmin:
                     dmin = d
                     j = i
-            setScreen(x, y, color(nr[j], ng[j], nb[j]))  
+            setScreen(x, y, color(int([0][j]), int(npc[1][j]), int(npc[2][j])))  
             
 run()
