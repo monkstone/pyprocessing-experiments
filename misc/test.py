@@ -15,9 +15,10 @@ def setup():
     fill(100, 0, 0, 20)
     rect(0, 0, 500, 500)
     scale(0.75)
+    rect(0, 0, 500, 500)
+    scale(0.75)
     ellipse(0, 0, 500, 500)
     rotate(radians(45))
-    triangle(-250, 250/SQRT3, 0, -500/SQRT3, 250, 250/SQRT3)
-    triangle(-250, 250/SQRT3, 0, -500/SQRT3, 250, 250/SQRT3)
+    rect(0, 0, 500, 500)
 
 run()

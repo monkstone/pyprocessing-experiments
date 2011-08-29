@@ -44,14 +44,14 @@ def setup():
 
 def draw():
     """
-    Loads an existing voronoi image from file to keep the impatient happy,  creates 
-    (it takes a while) a new voronoi image by brute force, and draws it screen.
+    loads a existing voronoi image from file to keep the impatient happy
+    creates (takes a bit) a new voronoi image by brute force and draws it screen when ready
     """    
     global source,  voronoi, npos,  nc,  n
     if (frame.count < 5):
         background(source)      
     elif (voronoi == None):
-        voronoi = new_voronoi(npos, nc,  n)   # this is a canditate for a new thread!
+        voronoi = new_voronoi(npos, nc,  n)
     else:
         background(voronoi)  
         
@@ -66,16 +66,20 @@ def new_voronoi(npos, nc,  n):
     voronoi = PImage(width,height,  RGB)
     for y in xrange(height):
         for x in xrange(width):
-            dmin = ((width - 1) * (width - 1)) + ((height - 1) * (height - 1)) 
+            # find the closest cell center
+            # dmin = hypot_squared(width - 1, height - 1) # more intelligible version
+            dmin = ((width - 1) * (width - 1)) + ((height - 1) * (height - 1)) # inline version
             j = -1
             for i in xrange(n):
-                d = ((npos[X][i] - x) * (npos[X][i] - x)) + ((npos[Y][i] - y) * (npos[Y][i] - y)) 
+                # d = hypot_squared((nx[i] - x),  (ny[i] - y)) # more intelligible version
+                d = ((npos[X][i] - x) * (npos[X][i] - x)) + ((npos[Y][i] - y) * (npos[Y][i] - y)) # inline version
                 if d < dmin:
                     dmin = d
                     j = i
             voronoi.pixels[y*width+x] = color(nc[R][j], nc[G][j], nc[B][j]) 
     voronoi.updatePixels()
     return voronoi
+    
 
 run()
 
