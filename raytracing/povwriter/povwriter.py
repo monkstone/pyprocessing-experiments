@@ -2,7 +2,7 @@
 PovRAY raytrace modules based on
 http://code.activestate.com/recipes/205451/ (r1)
 """
-__all__ =['POVFile',  'Vector',  'Sphere',  'Box',  'Triangle', 'Pigment', 
+__all__ = ['POVFile',  'Vector',  'Sphere',  'Box',  'Triangle', 'Pigment', 
 'Texture', 'Finish', 'Normal', 'Camera', 'LightSource',  'Torus', 'Union', 
 'Intersection', 'Difference',  'SkySphere', 'Mesh',  'Plane']
 HEADER = """
@@ -28,6 +28,8 @@ global_settings{
 """
 
 
+
+
 class POVFile(object):
     
     """
@@ -49,6 +51,16 @@ class POVFile(object):
         """
         self.writeln( '#include "%s"' % name )
         self.writeln()
+    def declare(self, name):
+        """
+        Formats and writes a PovRAY include file 'name'
+        """
+        self.writeln( '#declare %s' % name )
+    def unformatted(self, name):
+        """
+        Formats and writes a PovRAY include file 'name'
+        """
+        self.writeln( '%s' % name )  
     def indent(self):
         """
         Make output pretty PovRAY is agnostic

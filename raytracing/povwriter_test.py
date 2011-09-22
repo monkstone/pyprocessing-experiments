@@ -1,15 +1,7 @@
 """
-elegant_ball.py
-Another opengl sketch from lazydog translated to pyprocessing by monkstone.
-http://lazydog-bookfragments.blogspot.com/2009/05/final-version-of-ball-of
--confusion-for.html
+povwriter_test.py
 """
-from pyprocessing import *
-from povwriter.povwriter import *
-from math import sqrt
-
-# define PHI as the Golden Ratio constant
-PHI = (1 + sqrt(5))/2
+from povwriter import *
 
 def main():
     scene = POVFile("basic_scene.pov",  "colors.inc",  "skies.inc")
