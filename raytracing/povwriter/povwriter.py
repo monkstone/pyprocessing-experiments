@@ -56,11 +56,12 @@ class POVFile(object):
         Formats and writes a PovRAY include file 'name'
         """
         self.writeln( '#declare %s' % name )
-    def unformatted(self, name):
+    def raw(self, content):
         """
-        Formats and writes a PovRAY include file 'name'
+        Writes raw content to PovRAY file useful for blocks of fiddly code
+        like for example a complicated light source (eg non point source)
         """
-        self.writeln( '%s' % name )  
+        self.writeln( '%s' % content )  
     def indent(self):
         """
         Make output pretty PovRAY is agnostic
@@ -248,6 +249,14 @@ class Cylinder(Item):
     def __init__(self, v1, v2, radius, *opts, **kwargs):
         " opts: open "
         Item.__init__(self, "cylinder", (v1, v2, radius), opts, **kwargs)
+        
+class Blob(Item):
+    """
+    PovRAY blob primitive
+    """
+    def __init__(self, v1, v2, radius, *opts, **kwargs):
+        " opts: open "
+        Item.__init__(self, "blob", (v1, v2, radius), opts, **kwargs)        
 
 class Plane(Item):
     """

@@ -1,9 +1,12 @@
 """
 cornell_box.py
-Object Orientated Cornell Box, some elements fudged by plain text copying mainly
-using a modified recipe (http://code.activestate.com/recipes/205451/ (r1)) as the 
-interface
+Author: Martin Prout September 2011, based on an original cornell.pov by Kari Kivisalo
+This O0 Cornell Box, uses 'raw' writing for more complicated PovRAY elements
+such as the non point light source, with a SubPatch.
+The povwriter module, a modified recipe (http://code.activestate.com/recipes/205451/ (r1)) 
+is the normal interface between python and PovRAY.
 """
+
 from povwriter import *
 
 LC ='LightColor=<1,0.67,0.21>;' 
@@ -112,7 +115,7 @@ class CornellBox(object):
         self.scene.declare(SP)
         self.scene.declare(I0)
         self.scene.declare(J0)
-        self.scene.unformatted(UF)
+        self.scene.raw(UF)
         self.scene.declare(JE)
         self.scene.declare(IE)
         self.scene.write(self.cam, self.skylight,  self.cornell_box,  self.right_wall, self.left_wall,  
