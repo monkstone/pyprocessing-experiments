@@ -56,21 +56,9 @@ plane
     }
 }
 
-triangle
+sphere
 {
-    <0, 1, 2>, <1, 0, 1>, <0, 0, 0>
-    texture
-    {
-        pigment
-        {
-            color Red
-        }
-    }
-}
-
-box
-{
-    <0, 1, 2>, <1, 0, 1>
+    <0, 1, 2>, 1
     texture
     {
         pigment
