@@ -78,5 +78,6 @@ box
             color Yellow
         }
     }
+    rotate <0, 10, 0>
 }
 

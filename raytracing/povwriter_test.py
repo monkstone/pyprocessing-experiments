@@ -17,7 +17,8 @@ def main():
                     Texture(
                             Pigment(
                                     color = "Yellow")
-                                    )
+                                    ), 
+                                    rotate = (0,  10, 0)
                                 )
     triangle = Triangle((0, 1, 2), (1, 0, 1),  (0,  0, 0), 
                         Texture(
@@ -27,6 +28,7 @@ def main():
                                 )
                            
     light = LightSource( (2, 4, -3), color = "White")
+    
     scene.write(cam,  sky,  light,  ground,  triangle,  sphere)
     
 if __name__ == "__main__":
