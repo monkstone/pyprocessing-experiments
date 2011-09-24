@@ -34,7 +34,7 @@ class CornellBox(object):
     Cornell box mainly as an object, except for the lights which are bit complicated
     """
     def __init__(self):
-        self.scene = POVFile("cornell_box.pov",  "colors.inc",  "skies.inc")
+        self.scene = POVFile("cornell_box.pov",  (300, 300), "colors.inc",  "skies.inc")
         
         self.cam = Camera(
                           location = (27.8, 27.3, -80), 
