@@ -5,7 +5,9 @@
 // For PovRAY Version: 3.7 (includes radiosity)
 // Date: September 2011
 // Auth: Martin Prout 
-// +width 800 +height 600 for basic_scene example
+
+// width 800 height 600
+
 #version 3.7;
 global_settings{
     assumed_gamma 1.0
@@ -56,21 +58,9 @@ plane
     }
 }
 
-triangle
+sphere
 {
-    <0, 1, 2>, <1, 0, 1>, <0, 0, 0>
-    texture
-    {
-        pigment
-        {
-            color Red
-        }
-    }
-}
-
-box
-{
-    <0, 1, 2>, <1, 0, 1>
+    <0.0, 0.25, 2>, 0.25
     texture
     {
         pigment
@@ -78,6 +68,41 @@ box
             color Yellow
         }
     }
-    rotate <0, 10, 0>
+}
+
+sphere
+{
+    <0.5, 0.75, 2>, 0.25
+    texture
+    {
+        pigment
+        {
+            color Yellow
+        }
+    }
+}
+
+sphere
+{
+    <1.0, 1.25, 2>, 0.25
+    texture
+    {
+        pigment
+        {
+            color Yellow
+        }
+    }
+}
+
+sphere
+{
+    <1.5, 1.75, 2>, 0.25
+    texture
+    {
+        pigment
+        {
+            color Yellow
+        }
+    }
 }
 

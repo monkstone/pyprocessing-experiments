@@ -5,7 +5,9 @@
 // For PovRAY Version: 3.7 (includes radiosity)
 // Date: September 2011
 // Auth: Martin Prout 
-// +width 800 +height 600 for basic_scene example
+
+// width 300 height 300
+
 #version 3.7;
 global_settings{
     assumed_gamma 1.0
@@ -64,7 +66,7 @@ box
     }
 }
 
-union
+merge
 {
     triangle
     {
@@ -104,7 +106,7 @@ union
     }
 }
 
-union
+merge
 {
     triangle
     {
@@ -128,7 +130,7 @@ union
     }
 }
 
-union
+merge
 {
     triangle
     {
@@ -152,7 +154,7 @@ union
     }
 }
 
-union
+merge
 {
     triangle
     {
@@ -208,7 +210,7 @@ union
     }
 }
 
-union
+merge
 {
     triangle
     {
