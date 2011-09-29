@@ -48,7 +48,7 @@ class CornellBox(object):
         self.skylight = Box ((21.3, 54.87, 33.2),  (34.3, 54.88, 22.7),  'no_shadow', 
                              Pigment(rgb = (1, 1, 1)), Finish(emission = 0.78,  diffuse = 0))
         # Floor, Ceiling, Backwall                             
-        self.cornell_box = Merge(
+        self.cornell_box = Union(
             # Floor
             Triangle((55.28, 0.0, 0.0), (0.0, 0.0, 0.0), (0.0, 0.0, 55.92)),
             Triangle((55.28, 0.0, 0.0), (0.0, 0.0, 55.92), (54.96, 0.0, 55.92)), 
@@ -62,21 +62,21 @@ class CornellBox(object):
             )
              
         # Right wall
-        self.right_wall = Merge (
+        self.right_wall = Union (
             Triangle((0.0, 54.88, 0.0), (0.0, 54.88, 55.92), (0.0, 0.0, 55.92)), 
             Triangle((0.0, 54.88, 0.0), (0.0, 0.0, 55.92), (0.0, 0.0, 0.0)), 
             Texture(Pigment(rgb = (0.025, 0.236, 0.025)),  Finish(diffuse=0.75,  ambient = 0))
             )
             
         # Left wall
-        self.left_wall = Merge (
+        self.left_wall = Union (
             Triangle((55.28, 0.0, 0.0), (54.96, 0.0, 55.92), (55.60, 54.88, 55.92)), 
             Triangle((55.28, 0.0, 0.0), (55.60, 54.88, 55.92), (55.60, 54.88, 0.0)), 
             Texture(Pigment(rgb = (0.57, 0.025, 0.025)),  Finish(diffuse=0.75,  ambient = 0))
             )
             
      
-        self.short_box = Merge (
+        self.short_box = Union (
             #Short block
             Triangle((13.00, 16.50, 6.50), (8.20, 16.50, 22.50), (24.00, 16.50, 27.20)), 
             Triangle((13.00, 16.50, 6.50), (24.00, 16.50, 27.20), (29.00, 16.50, 11.40)), 
@@ -91,7 +91,7 @@ class CornellBox(object):
             Texture(Pigment(rgb = (1,  1,  1)),  Finish(diffuse=0.75,  ambient = 0))   
             )  
 
-        self.tall_box = Merge (
+        self.tall_box = Union (
             #Tall block
             Triangle((42.30, 33.00, 24.70), (26.50, 33.00, 29.60), (31.40, 33.00, 45.60)), 
             Triangle((42.30, 33.00, 24.70), (31.40, 33.00, 45.60), (47.20, 33.00, 40.60)), 
