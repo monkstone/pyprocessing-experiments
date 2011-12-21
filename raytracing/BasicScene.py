@@ -1,8 +1,6 @@
 """
-cornell_box.py
-Author: Martin Prout September 2011, based on an original cornell.pov by Kari Kivisalo
-This O0 Cornell Box, uses 'raw' writing for more complicated PovRAY elements
-such as the non point light source, with a SubPatch.
+basic_scene.py
+Author: Martin Prout September 2011
 The povwriter module, a modified recipe (http://code.activestate.com/recipes/205451/ (r1)) 
 is the normal interface between python and PovRAY.
 """
