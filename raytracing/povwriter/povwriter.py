@@ -181,7 +181,7 @@ class Item(object):
             if i < len(self.opts):
                 self.opts[i] = val
                 
-    def __getitem__(self, i, val):
+    def __getitem__(self, i):
         if i < len(self.args):
             return self.args[i]
         else:
@@ -328,7 +328,8 @@ class Mesh(Item):
 
 class Union(Item):
     """
-    Wrap a group of PovRAY 'objects' as a union
+    Wrap a group of PovRAY 'objects' as a union, use in preference to merge
+    for solid objects (it is quicker?)
     """
     def __init__(self, *opts, **kwargs):
         Item.__init__(self, "union", (), opts, **kwargs)
@@ -349,7 +350,8 @@ class Difference(Item):
 
 class Merge(Item):
     """
-    Merge a group of PovRAY 'objects' as a single object
+    Merge a group of PovRAY 'objects' as a single object, use to get rid
+    off internal surfaces of sem-transparent objects
     """   
     def __init__(self, *opts, **kwargs):
         Item.__init__(self, "merge", (), opts, **kwargs)
@@ -361,7 +363,7 @@ def basic_scene():
     Note the use of tuples to group scalar values for vector type
     """
     scene = POVFile("basic_scene.pov",  (800, 600), "colors.inc",  "skies.inc")
-    cam = Camera(location = (0, 2, -3), look_at = (0, 1, 2))
+    cam = Camera(location = (0, 2, -3), look_at = (0, 1, 2),  right = (1.3333,  0,  0))
     sky = SkySphere("S_Cloud3")
     ground = Plane((0.0, 1.0, 0.0), 0.0,
                     Texture(
@@ -415,6 +417,8 @@ def test():
     The current test function is ...
     """
     spiral()
+    import subprocess
+    subprocess.check_output(['povray', '+W800',  '+H800',  '+Q11',  '+AA', '+AM2','+Ispiral.pov'])
         
 if (__name__ == "__main__"):
     test()      

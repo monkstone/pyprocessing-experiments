@@ -7,7 +7,7 @@ The povwriter module, a modified recipe (http://code.activestate.com/recipes/205
 is the normal interface between python and PovRAY.
 """
 
-from povwriter import *
+from povwriter.povwriter import *
 
 
 
@@ -29,7 +29,7 @@ class BasicScene(object):
         self.light = LightSource( (2, 4, -3), color = "White")
         
     def foreground(self):
-        for i in xrange(4):
+        for i in range(4):
             self.scene.write(Sphere( ((i * 0.5), 0.25 + (i * 0.5), 2), 0.25, 
                 Texture(
                         Pigment(

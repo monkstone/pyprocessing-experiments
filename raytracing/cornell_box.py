@@ -7,7 +7,7 @@ The povwriter module, a modified recipe (http://code.activestate.com/recipes/205
 is the normal interface between python and PovRAY.
 """
 
-from povwriter import *
+from povwriter.povwriter import *
 
 LC ='LightColor=<1,0.67,0.21>;' 
 N = 'N=3; //Divisions per side'

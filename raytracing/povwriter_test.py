@@ -1,11 +1,11 @@
 """
 povwriter_test.py
 """
-from povwriter import *
+from povwriter.povwriter import *
 
-def main():
-    scene = POVFile("basic_scene.pov",  "colors.inc",  "skies.inc")
-    cam = Camera(location = (0, 2, -3), look_at = (0, 1, 2))
+def create_scene():
+    scene = POVFile("basic_scene.pov",  (800, 800), "colors.inc",  "skies.inc")
+    cam = Camera(location = (0, 2, -3), look_at = (0, 1, 2),  right = (1,  0,  0))
     sky = SkySphere("S_Cloud3")
     ground = Plane((0.0, 1.0, 0.0), 0.0,
                     Texture(
@@ -30,6 +30,12 @@ def main():
     light = LightSource( (2, 4, -3), color = "White")
     
     scene.write(cam,  sky,  light,  ground,  triangle,  sphere)
+    
+def main():
+    import subprocess
+    create_scene()
+    subprocess.check_output(['povray','+W800',  '+H800',  '+Q11',  '+Ibasic_scene.pov'])
+    
     
 if __name__ == "__main__":
     main()    
