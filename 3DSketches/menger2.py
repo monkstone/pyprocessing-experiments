@@ -50,7 +50,7 @@ def export_menger():
 
 def create_menger(xx, yy, zz, sz):
     """
-    Create a recursive menger sponge using my_cube
+    Create a recursive menger sponge using my Cube class
     """	
     u = sz / 3.0
     if (sz < 20):
