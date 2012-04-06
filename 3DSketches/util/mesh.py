@@ -61,7 +61,7 @@ class Mesh(object):
         temp.append("mesh2{\n")
         temp.append("\tvertex_vectors {\n")
         temp.append("\t{0},\n".format(len(self.vertices)))
-        for pt in self.points():
+        for pt in self.vertices:
             temp.append(self.vert_string(pt))
         temp.append("\t}\n") 
         temp.append(self.index_string(self.vertex_index))
