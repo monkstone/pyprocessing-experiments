@@ -1,12 +1,11 @@
 from pyprocessing import *
-from util.cube import Cube
+from util.box import Box
 
 FOV = PI/3.0
 angle = 0.0
 ANGLE_STEP = PI / 180.0
 menger = []
-
-             
+ 
 
 def setup():
     size(800,600)
@@ -23,9 +22,9 @@ def draw():
     angle = (angle + ANGLE_STEP) % TWO_PI
     rotateZ(angle)
     rotateY(angle)
-    export_menger()
-    #for cub in menger:
-    #    draw_cube(cub)
+    #export_menger()
+    for cub in menger:
+        draw_cube(cub)
     
 
 def draw_cube(cube):
@@ -54,8 +53,8 @@ def create_menger(xx, yy, zz, sz):
     Create a recursive menger sponge using my_cube
     """	
     u = sz / 3.0
-    if (sz < 10):
-        menger.append(Cube(xx, yy, zz, sz))
+    if (sz < 20):
+        menger.append(Box.createAcube(xx, yy, zz, sz).toMesh())
     else:
         for i in xrange(-1, 2, 1):
             for j in xrange(-1, 2, 1):
