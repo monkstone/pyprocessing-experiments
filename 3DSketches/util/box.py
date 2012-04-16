@@ -22,7 +22,7 @@ class Box(object):
         self.yd = yd
         self.zd = zd
         self.idx_array  = [1,  0,  2,  3,  1,  2,  5,  4,  6,  7,  5,  6,  4,  5,  0,  1,  4,  0,  7,  6,  2,  2,  6,  3,  0,  5,  7,  2,  0,  7,  4,  1, 6,  6,  1,  3]
-        self.normal_array = [0, 0, 1, 0, 0, -1, 1, 0, 0, -1, 0, 0, 0, 1, 0, 0, -1, 0]
+        self.normal_idx_array = [0, 0, 0,  0, 0, 0,  1, 1, 1,  1,  1,  1, 2, 2, 2, 2, 2, 2, 3, 3,3, 3, 3, 3,  4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5]
     def points(self):
         """
         The unique corner points of box (front + back order)
@@ -36,11 +36,24 @@ class Box(object):
         cpoints.append( Vec3D(-self.xd * 0.5 + self.xx, -self.yd * 0.5 + self.yy, +self.zd * 0.5 + self.zz) )
         cpoints.append( Vec3D(+self.xd * 0.5 + self.xx, +self.yd * 0.5 + self.yy, +self.zd * 0.5 + self.zz) )
         cpoints.append( Vec3D(-self.xd * 0.5 + self.xx, +self.yd * 0.5 + self.yy, +self.zd * 0.5 + self.zz) )
-        return cpoints   
+        return cpoints
+     
+    def normals(self):
+        """
+        The standard face normals
+        """
+        normals = [] 
+        normals.append( Vec3D(0, 0, 1))  
+        normals.append( Vec3D(0, 0, -1))
+        normals.append( Vec3D(1, 0, 0)) 
+        normals.append( Vec3D(-1, 0, 0))
+        normals.append( Vec3D(0, 1, 0))  
+        normals.append( Vec3D(0, -1, 0))
+        return normals       
         
         
     def toMesh(self):
-        return Mesh.meshFromVertices(self.points(), self.idx_array)
+        return Mesh.meshFromVerticesNormals(self.points(), self.idx_array,  self.normals(),  self.normal_idx_array)
  
                     
     @classmethod         
