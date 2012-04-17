@@ -23,13 +23,14 @@ class ArcBall(object):
         
     def selectAxis(self,  axis):
         """
-        call this from sketch (typically keyPressed() to constrain rotation to one axis)
+        call this from sketch (typically in keyPressed() to constrain rotation to one axis)
+        valid input 0, 1, 2 or -1
         """
         self.axis = axis
         
-    def mouseToSphere(self, x, y):
+    def __mouse2sphere(self, x, y):
         """
-        Map mouse to ArcBall (sphere)
+        private map mouse to ArcBall (sphere)
         """
         v = PVector()
         v.x = (x - self.center_x) / self.radius
@@ -39,13 +40,13 @@ class ArcBall(object):
             v.normalize()
         else:
             v.z = sqrt(1.0 - mag)
-        return  v  if (self.axis == -1) else (self.constrainVector(v, self.axisSet[self.axis]))
+        return  v  if (self.axis == -1) else (self.__constrain(v, self.axisSet[self.axis]))
     
     def mousePressed(self, x, y):
         """
         pass in mouse.x and mouse.y parameters from sketch
         """
-        self.v_down = self.mouseToSphere(x, y)
+        self.v_down = self.__mouse2sphere(x, y)
         self.q_down.copy(self.q_now)
         self.q_drag.reset()
 
@@ -53,10 +54,13 @@ class ArcBall(object):
         """
         pass in mouse.x and mouse.y parameters from sketch
         """
-        self.v_drag = self.mouseToSphere(x, y)
+        self.v_drag = self.__mouse2sphere(x, y)
         self.q_drag.set(PVector.dot(self.v_down, self.v_drag), self.v_down.cross(self.v_drag))
         
-    def constrainVector(self, vector, axis):
+    def __constrain(self, vector, axis):
+        """
+        private constrain (used to constrain axis)
+        """
         res = PVector.sub(vector, PVector.mult(axis, PVector.dot(axis, vector)))
         res.normalize()
         return res
@@ -66,11 +70,11 @@ class ArcBall(object):
         Call this function in the sketch draw loop to get rotation matrix as an array 
         """
         self.q_now = Quaternion.mult(self.q_drag, self.q_down)
-        return self.quat2Matrix(self.q_now)
+        return self.__quat2matrix(self.q_now)
 
-    def quat2Matrix(self,  q) :
+    def __quat2matrix(self,  q) :
         """
-        Return matrix as array
+        private return matrix as array
         """
         rot = q.getValue()
         return rot

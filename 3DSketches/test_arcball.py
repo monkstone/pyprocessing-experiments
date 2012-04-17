@@ -7,6 +7,9 @@ Sketch features the use of ArcBall class, provides intuitive manipulation of ske
 ArcBall class uses Quaternions class for efficient calculation of rotation, hold down x, y or z
 keys to constrain rotation to that plane otherwise drag mouse for smooth rotation
 """
+X = 0
+Y= 1
+Z = 2
 
 def setup():
     size(600, 600)
@@ -18,11 +21,17 @@ def draw():
     background(0xff66c0ff)
     translate(width/2.0, height/2.0, -height/4.0)
     defineLights()
-    w,  x,  y,  z = arcball.update()
-    rotate(w,  x,  y,  z)
+    update()
     lights()
     stroke(0)
     cube(arcball.radius)
+    
+def update():
+    """
+    wrap arcball update and rotation as a local function
+    """
+    theta,  x,  y,  z = arcball.update()
+    rotate(theta,  x,  y,  z)    
 
 def mousePressed():
     arcball.mousePressed(mouse.x, mouse.y)
@@ -46,13 +55,16 @@ def keyPressed():
     of rotation by holding down key corresponding to axis
     """
     if (key.char == 'x'):
-        arcball.selectAxis(0)
+        arcball.selectAxis(X)
     if (key.char == 'y'):
-        arcball.selectAxis(1)
+        arcball.selectAxis(Y)
     if (key.char == 'z'):
-        arcball.selectAxis(2)
+        arcball.selectAxis(Z)
 
 def keyReleased():
+    """
+    Release axis constraint
+    """
     arcball.selectAxis(-1)
 
 def cube(sz):
