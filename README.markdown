@@ -7,6 +7,6 @@ Get [pyprocessing here](http://code.google.com/p/pyprocessing/).
 Pyprocessing is a pure python based implementation of [processing](http://processing.org), based on the pyglet games engine, and hence supports OPENGL. I find [Eric5](http://eric-ide.python-projects.org/eric-download.html) to be an excellent ide for pyprocessing, and you can run sketches directly from the ide (Note Eric5 requires python3.1+, but currently pyprocessing/pyglet only supports python2.X, however Eric5 can handle running sketches with either python version 2 or 3)
 
 ## Alternatives ##
-[processing.py](http://code.google.com/p/pyprocessing/) is an alternative implementation of processing based on jython, and hence should be compatible with vanilla processing libraries, but less embedded in the python ecology (eg numpy scipy).
+[processing.py](https://github.com/jdf/processing.py) is an alternative implementation of processing based on jython, and hence should be compatible with vanilla processing libraries, but less embedded in the python ecology (eg numpy scipy).
 
 
