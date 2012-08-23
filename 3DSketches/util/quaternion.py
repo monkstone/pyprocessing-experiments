@@ -2,14 +2,14 @@ from math import acos,  sqrt
 
 class Quaternion(object):
     """
-    Helper clas, orinally written for use by ArcBall class
+    Helper class, originally written for use by ArcBall class
     """
  
     def __init__(self, w = 1.0,  x = 0,  y = 0,  z = 0):   
         """
         Important to initialize default with unit matrix
         """
-        self.x,  self.y,  self.z,  self.w = x,  y,  z,  w
+        self.w, self.x, self.y, self.z = w,  x,  y,  z
     
     def reset(self):
         """
@@ -48,15 +48,15 @@ class Quaternion(object):
         y = q1.w * q2.y + q1.y * q2.w + q1.z * q2.x - q1.x * q2.z
         z = q1.w * q2.z + q1.z * q2.w + q1.x * q2.y - q1.y * q2.x
         w = q1.w * q2.w - q1.x * q2.x - q1.y * q2.y - q1.z * q2.z
-        product = Quaternion(x,  y,  z,  w)
+        product = Quaternion(w,  x,  y,  z)
         return product
         
     def getValue(self):
         """
-        Somewhat arbitary epsilon? returns an array of angle and axis vector
+        Empirically determined epsilon for a python float on my 64 bit linux box
         """
         sa = sqrt(1.0 - self.w * self.w)
-        epsilon = 1e-8
+        epsilon = 2.220446049250313e-16    
         if (sa < epsilon):
             sa = 1.0
         return [acos(self.w) * 2, self.x / sa, self.y / sa, self.z / sa]
