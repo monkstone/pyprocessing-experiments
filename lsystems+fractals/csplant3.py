@@ -1,11 +1,12 @@
 from pyprocessing import *
 from math import pi, sin
 from lsystems import csgrammar
+from lsystems.arcball import ArcBall
 
-
-THETA = (6.5* pi)/36 # 25 degrees in radians
+myball = None          # needs exposure at module level
+THETA = (6.5* pi)/36  #  32.5 degrees in radians
 production = None   # needs exposure at module level
-distance = 140
+distance = 90
 repeat = 1
 count = 0
 scale_factor = [0.55, 0.65, 0.72, 0.75, 0.8,  0.85]
@@ -21,27 +22,26 @@ def setup():
     processing setup
     """
     size(800, 600)
-    global production
+    global production,  myball
+    myball = ArcBall(width/2.0, height/2.0, (width - 20) * 0.5)
+    myball.selectAxis(1)
     production = csgrammar.repeat(6, AXIOM, RULES, IGNORE)
     fill(0, 200, 0)
-    noStroke()
-    
+    noStroke()    
 
 def draw():
     """
     Animate a 3D context free plant in processing/pyglet draw loop
     """
     background(20, 20, 180)
-    lights()    
+    lights()      
     translate(width/2.0, height * 0.8) 
-    camera(250, 250, 800, 0, -340, 0, 0, 1, 0)     
-    rotateY(radians((frame.count * 2)%720) )
     lightSpecular(204, 204, 204) 
     specular(255, 255, 255) 
-    shininess(1.0)    
+    shininess(1.0)  
+    update()  
     for val in production:
-        evaluate(val)
-    
+        evaluate(val)    
     
 def __noop():
     pass
@@ -82,8 +82,7 @@ def __drawRod():
     radius1 = distance/6
     radius2 = distance/(6 *  scale_factor[count])
     angle = 0
-    angleIncrement = TWO_PI / sides
-    
+    angleIncrement = TWO_PI / sides    
     beginShape(QUAD_STRIP)
     for i in range(sides+1):
         normal(cos(angle), 0, sin(angle))        
@@ -116,6 +115,19 @@ lsysOp = {
     'A' : __noop,   
     'E' : __noop  
 }
+
+def update():
+    """
+    wrap arcball update and rotation as a local function
+    """
+    theta,  x,  y,  z = myball.update()
+    rotate(theta,  x,  y,  z)    
+    
+def mousePressed():
+    myball.mousePressed(mouse.x, mouse.y)
+  
+def mouseDragged():
+    myball.mouseDragged(mouse.x, mouse.y) 
     
 def evaluate(key):
     """
