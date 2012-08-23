@@ -31,10 +31,8 @@ def draw():
     """
     Animate a 3D context free plant in processing/pyglet draw loop
     """
-    global my_ball
     background(20, 20, 180)
     lights()    
-    
     translate(width/2.0, height * 0.8) 
     camera(250, 250, 800, 0, -340, 0, 0, 1, 0)     
     rotateY(radians((frame.count * 2)%720) )
