@@ -15,9 +15,6 @@ RULES = {
 }
 
 # string walk constants
-LEFT = -1
-RIGHT = 1
-frameCount = 0
 THETA = (5 * pi)/36 # 25 degrees in radians
 production = None   # needs exposure at module level
     
@@ -92,11 +89,9 @@ def draw():
     Animate a 3D context free plant in processing/pyglet draw loop
     """
     background(20, 20, 180)
-    global frameCount
-    frameCount += 1
     lights()  
     camera(250, 250, 800, 0, -300, 0, 0, 1, 0)     
-    rotateY(radians((frameCount * 2)%720) )
+    rotateY(radians((frame.count * 2)%720) )
     pushMatrix()
     render(production)
     popMatrix()
